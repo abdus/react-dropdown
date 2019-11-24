@@ -1,6 +1,6 @@
 {
   "name": "@thisisabdus/react-dropdown",
-  "version": "0.1.0",
+  "version": "0.0.1-alpha",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "files": [
@@ -33,5 +33,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "A React component for custom dropdown",
+  "dependencies": {
+    "babel-preset-react-app": "^9.0.2"
+  },
+  "author": "@thisisabdus <mail@abdus.xyz>",
+  "license": "MIT"
 }
