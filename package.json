@@ -35,9 +35,6 @@
     ]
   },
   "description": "A React component for custom dropdown",
-  "dependencies": {
-    "babel-preset-react-app": "^9.0.2"
-  },
   "author": "@thisisabdus <mail@abdus.xyz>",
   "license": "MIT"
 }
