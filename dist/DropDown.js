@@ -1,7 +1,14 @@
 import React from 'react';
-import './DropDown.css';
+const dd_option_styles = {
+  padding: '0.5rem',
+  borderBottom: '1px solid lightgray'
+};
 export default function DropDown({
-  options
+  options,
+  color,
+  backgroundColor,
+  ddMenuBackgroundColor,
+  onOptionSelect
 }) {
   const [isDropped, setDropped] = React.useState(false);
   const [selectedOption, setSelectedOption] = React.useState(null);
@@ -16,7 +23,9 @@ export default function DropDown({
     style: {
       padding: '0.5rem',
       borderBottom: isDropped ? '1px solid lightgray' : 0,
-      background: 'lightgray'
+      background: 'lightgray',
+      color: color ? color : 'inherit',
+      backgroundColor: backgroundColor ? backgroundColor : 'inherit'
     },
     onClick: e => {
       setDropped(true);
@@ -30,11 +39,19 @@ export default function DropDown({
     },
     contentEditable: selectedOption ? false : isDropped ? true : false
   }, selectedOption ? selectedOption : isDropped ? null : 'Select an Option'), isDropped ? React.createElement("div", null, ddOptions.map(o => React.createElement("div", {
+    style: {
+      background: ddMenuBackgroundColor ? ddMenuBackgroundColor : 'inherit',
+      ...dd_option_styles
+    },
     onClick: e => {
+      if (onOptionSelect && typeof onOptionSelect === 'function') {
+        e.value = e.currentTarget.innerText;
+        onOptionSelect(e);
+      }
+
       setSelectedOption(e.currentTarget.innerText);
       setDropped(false);
     },
-    className: "options",
     key: btoa(Math.random() * Math.random() + '')
   }, o))) : null));
 }

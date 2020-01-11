@@ -1,7 +1,17 @@
 import React from 'react';
-import './DropDown.css';
 
-export default function DropDown({ options }) {
+const dd_option_styles = {
+  padding: '0.5rem',
+  borderBottom: '1px solid lightgray',
+};
+
+export default function DropDown({
+  options,
+  color,
+  backgroundColor,
+  ddMenuBackgroundColor,
+  onOptionSelect,
+}) {
   const [isDropped, setDropped] = React.useState(false);
   const [selectedOption, setSelectedOption] = React.useState(null);
   const [ddOptions, setDDOptions] = React.useState(options);
@@ -20,6 +30,8 @@ export default function DropDown({ options }) {
             padding: '0.5rem',
             borderBottom: isDropped ? '1px solid lightgray' : 0,
             background: 'lightgray',
+            color: color ? color : 'inherit',
+            backgroundColor: backgroundColor ? backgroundColor : 'inherit',
           }}
           onClick={e => {
             setDropped(true);
@@ -43,11 +55,20 @@ export default function DropDown({ options }) {
           <div>
             {ddOptions.map(o => (
               <div
+                style={{
+                  background: ddMenuBackgroundColor
+                    ? ddMenuBackgroundColor
+                    : 'inherit',
+                  ...dd_option_styles,
+                }}
                 onClick={e => {
+                  if (onOptionSelect && typeof onOptionSelect === 'function') {
+                    e.value = e.currentTarget.innerText;
+                    onOptionSelect(e);
+                  }
                   setSelectedOption(e.currentTarget.innerText);
                   setDropped(false);
                 }}
-                className='options'
                 key={btoa(Math.random() * Math.random() + '')}
               >
                 {o}
